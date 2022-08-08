@@ -1,0 +1,16 @@
+class Solution {
+    public int singleNonDuplicate(int[] nums) {
+        int low=0;
+        int high=nums.length-2;
+        while(high>=low)
+        {
+            int mid=(low+high)/2;
+            if(nums[mid]==nums[mid^1])
+                // odd^1-- even and even^1--- odd always
+                low=mid+1;
+            else
+                high =mid-1;
+        }
+        return nums[low];
+    }
+}
