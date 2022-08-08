@@ -1,0 +1,17 @@
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        Stack<Integer> s=new Stack<>();
+        Arrays.sort(coins);
+       for(int i=coins.length-1;i>=0;i--)
+       {
+          if(coins[i]>amount)
+              i--;
+           else{
+               s.push(coins[i]);
+                   i++;
+           }
+       }
+        return s.size();
+    }
+   
+}
