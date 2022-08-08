@@ -1,0 +1,23 @@
+class Solution {
+    public void create(int idx,int[] nums, List<List<Integer>> al, List<Integer> ds)
+    {
+            al.add(new ArrayList<>(ds));
+        
+        
+        for(int i=idx;i<nums.length;i++)
+        {
+            if(i!=idx && nums[i]==nums[i-1]) continue;
+            
+            ds.add(nums[i]);
+            create(i+1,nums,al,ds);
+            ds.remove(ds.size()-1);
+            
+        }
+    }
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> al=new ArrayList<>();
+        create(0,nums,al,new ArrayList<>());
+        return al;
+    }
+}
