@@ -1,0 +1,59 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Pair{
+    TreeNode node;
+    int hd;
+    Pair(TreeNode n,int h){
+        node=n;
+        hd=h;
+    }
+}
+class Solution {
+    
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        Queue<Pair> q=new LinkedList<Pair>();
+        Map<Integer,List<Integer>> mp=new TreeMap<>();
+        q.add(new Pair(root,0));
+        while(q.isEmpty()==false)
+        {
+            Pair p=q.poll();
+            TreeNode curr=p.node;
+            int hd=p.hd;
+            if(mp.containsKey(hd))
+            {
+                mp.get(hd).add(curr.val);
+            }
+            
+            else
+            {
+                List<Integer> al=new ArrayList<>();
+                al.add(curr.val);
+                mp.put(hd,al);
+            }
+            if(curr.left!=null)
+                q.add(new Pair(curr.left,hd-1));
+             if(curr.right!=null)
+                q.add(new Pair(curr.right,hd+1));
+        }
+        List<List<Integer>>a=new ArrayList<>();
+       for(Map.Entry<Integer,List<Integer>> p: mp.entrySet())
+       {
+           List<Integer> x=p.getValue();
+           a.add(x);
+       }
+        return a;
+    }
+}
