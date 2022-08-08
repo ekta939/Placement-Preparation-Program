@@ -1,0 +1,28 @@
+class Solution {
+    private void per(int[] nums, boolean[] freq, List<List<Integer>>al, List<Integer> ds)
+    {
+        if(ds.size()==nums.length)
+        {
+            al.add(new ArrayList<>(ds));
+            return;
+        }
+        for(int i=0;i<nums.length;i++)
+        {
+            if(!freq[i])
+            {
+                freq[i]=true;
+                ds.add(nums[i]);
+                per(nums,freq,al,ds);
+                ds.remove(ds.size()-1);
+                freq[i]=false;
+            }
+        }
+    
+    }
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> al=new ArrayList<>();
+        boolean[] freq=new boolean[nums.length];
+        per(nums,freq,al,new ArrayList<>());
+        return al;
+    }
+}
