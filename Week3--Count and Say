@@ -1,0 +1,23 @@
+class Solution {
+    public String countAndSay(int n) {
+        if(n==1)
+            return "1";
+        
+        String s=countAndSay(n-1);
+        //System.out.println(s);
+        StringBuilder str=new StringBuilder("");
+        int cnt=0;
+        for(int i=0;i<s.length();i++)
+        {
+            cnt++;
+            if(i==s.length()-1 || s.charAt(i)!=s.charAt(i+1))
+            {
+                str.append(cnt).append(s.charAt(i));
+                cnt=0;
+            }
+        }
+        return str.toString();
+        
+        
+    }
+}
