@@ -1,0 +1,22 @@
+class Solution {
+    boolean ans=false;
+    public boolean findTarget(TreeNode root, int k) {
+        HashSet<Integer> set=new HashSet<Integer>();
+        inorder(root,k,set);
+        return ans;
+    }
+    public void inorder(TreeNode root,int k,HashSet<Integer> set){
+        if(root==null){
+            return;
+        }
+        
+        inorder(root.left,k,set);
+        if(set.contains(k-root.val)){
+            ans=true;
+            return;
+        }else{
+            set.add(root.val);
+        }
+        inorder(root.right,k,set);
+    }
+}
