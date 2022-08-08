@@ -1,0 +1,23 @@
+class Solution{
+    
+    void calc(int idx, int sum,ArrayList<Integer>arr, int N, ArrayList<Integer>al)
+    {
+        if(idx==N)
+        {
+            al.add(sum);
+            return;
+        }
+        
+        calc(idx+1,sum+arr.get(idx),arr,N,al);
+        
+        calc(idx+1,sum,arr,N,al);
+        
+    }
+    ArrayList<Integer> subsetSums(ArrayList<Integer> arr, int N){
+        // code here
+        ArrayList<Integer> al=new ArrayList<>();
+        calc(0,0,arr,N,al);
+        Collections.sort(al);
+        return al;
+    }
+}
