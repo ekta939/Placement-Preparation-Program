@@ -1,0 +1,46 @@
+class Solution {
+    public int minCost(int n, int[] cuts) {
+        int[][] dp = new int[cuts.length+2][cuts.length+2];
+       // for(int[] e:dp) Arrays.fill(e,-1);
+        
+        int[] cost = new int[cuts.length+2];
+        
+        //Creating a new array of size cuts.length+2 --> 0___cuts__len;
+        cost[0] = 0;
+        cost[cost.length-1] = n;
+        
+        for(int i=1; i<=cuts.length; i++) cost[i] = cuts[i-1];
+        Arrays.sort(cost);
+        
+        //return f(1,cuts.length,cost,dp);
+        
+		//--------------------------TABULATION-----------------------
+		for(int i = cost.length; i>0;i--){
+            for(int j = i; j<cost.length-1; j++){
+                
+                int min = (int)Math.pow(10,9);
+                for(int k = i; k<=j; k++){
+                    int costx = cost[j+1]-cost[i-1] + dp[i][k-1]+dp[k+1][j];
+                    min = Math.min(costx,min);
+                }
+                dp[i][j]=min;
+            }
+        }
+        
+        return dp[1][cuts.length];
+    }
+    
+	//---------------------------MEMOIZATION----------------------------------
+    
+    public int f(int i, int j, int[] cuts,int[][] dp){
+        if(i>j) return 0;                       //Return zero if i crosses j;
+        if(dp[i][j]!= -1) return dp[i][j];
+        int min = (int)Math.pow(10,9);
+        for(int k = i; k<=j; k++){
+            int cost = cuts[j+1]-cuts[i-1] + f(i,k-1,cuts,dp)+f(k+1,j,cuts,dp); //cuts[j+1]-cuts[i-1] to find the length#cost
+            min = Math.min(cost,min);
+        }
+        
+        return dp[i][j]=min;
+    }
+}
