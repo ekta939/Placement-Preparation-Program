@@ -1,0 +1,32 @@
+class Sol
+{
+   public static int wordBreak(String A, ArrayList<String> B )
+   {
+       Set<String> set = new LinkedHashSet<>();
+       
+       for( String s : B )
+       {
+           set.add(s);
+       }
+       
+       return isPresent( 0, set, A )? 1 : 0;
+       
+   }
+   
+   public static Boolean isPresent(int index, Set<String> set, String A){
+       
+       if( index == A.length() ){
+           return true;
+       }
+       
+       for( int i = index ; i<A.length() ; i++ ){
+           if( set.contains( A.substring(index,i+1) ) ){
+               if( isPresent( i+1, set, A )){
+                   return true;
+               }    
+           }
+       }
+       return false;
+       
+   }
+}
